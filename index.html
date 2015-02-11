@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="sandbox">
+    <head>
+        <meta charset="utf-8" />
+        <title>Angular.js playground</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link type="text/css" rel="stylesheet" href="css/bootstrap/3.0.0/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="css/default.css" />
+        <style type="text/css">
+        </style>
+    </head>
+    <body>
+        <script src="js/angular.min.js"></script>
+        <script type="text/javascript">
+            (function() {
+                var app = angular.module('sandbox', []);
+
+                app.controller('SandboxController', function() {
+                    this.config = sandbox;
+                });
+
+                var sandbox = {
+                    title: 'This is a sandbox application.',
+                    version: '1.0.0',
+                    showAll: true,
+                    showNamePlaceholder: false,
+                    showMath: false,
+                    showCurrencyFilter: false,
+                    showDateFilter: false,
+                    showStringFilters: false,
+                    showImages: false,
+                    dependencies: [
+                        { name: "jQuery" },
+                        { name: "angularjs" },
+                        { name: "HTML5" },
+                        { name: "CSS" },
+                        { name: "Bootstrap" }
+                    ],
+                    images: {
+                        lips: "lips.png"
+                    }
+                };
+            })();
+        </script>
+
+        <div class="container">
+            <div class="container" ng-controller="SandboxController as sandbox">
+                <div class="container">
+                    <h1>Angular.js Sandbox Project</h1>
+                    <p>{{sandbox.config.title}}</p>
+                    <p>Version {{sandbox.config.version}}</p>
+                    <p>Dependencies</p>
+                    <ul>
+                        <li ng-repeat="dep in sandbox.config.dependencies | orderBy:'+name'">{{dep.name}}</li>
+                    </ul>
+                </div>
+
+                <div class="container well" ng-show="sandbox.config.showNamePlaceholder || sandbox.config.showAll">
+                    <h1>ng-model example</h1>
+                    <p><input type="text" ng-model="what" placeholder="Enter something"></p>
+                    <p ng-hide="!what">I love {{what}}</p>
+                </div>
+
+                <div class="container well" ng-show="sandbox.config.showMath || sandbox.config.showAll">
+                    <h1>Math expressions</h1>
+                    <p>10 + 32 = {{10 + 32}}</p>
+                </div>
+
+                <div class="container well" ng-show="sandbox.config.showCurrencyFilter || sandbox.config.showAll">
+                    <h1>Currency Filter</h1>
+                    <p>That cat will be {{42 | currency}}</p>
+                </div>
+
+                <div class="container well" ng-show="sandbox.config.showDateFilter || sandbox.config.showAll">
+                    <h1>Date format filter</h1>
+                    <p>{{'1423606559000' | date:'yyyy-MM-dd HH:mm:ss'}}
+                </div>
+
+                <div class="container well" ng-show="sandbox.config.showStringFilters || sandbox.config.showAll">
+                    <h1>String filters</h1>
+                    <p>{{'Make me uppercase' | uppercase}}</p>
+                    <p>{{'Make Me Lowercase' | lowercase}}</p>
+                    <p>{{'Only show the first 22 characters of this sentence.' | limitTo:22}}</p>
+                </div>
+
+                <div class="container well" ng-show="sandbox.config.showImages || sandbox.config.showAll">
+                    <p>Hot <img ng-src="{{sandbox.config.images.lips}}" /> image</p>
+                </div>
+            </div>
+        </div>
+        <script src="js/jquery-1.10.2.min.js"></script>
+        <script src="css/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="js/default.js"></script>
+    </body>
+</html>
