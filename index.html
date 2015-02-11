@@ -20,6 +20,16 @@
                     this.config = sandbox;
                 });
 
+                app.controller('SectionController', function() {
+                    this.tab = 1;
+                    this.selectTab = function(tab) {
+                        this.tab = tab;
+                    };
+                    this.isSelected = function(tab) {
+                        return this.tab === tab;
+                    };
+                });
+
                 var sandbox = {
                     title: 'This is a sandbox application.',
                     version: '1.0.0',
@@ -56,62 +66,63 @@
                     </ul>
                 </div>
 
-                <section ng-init="tab = 1">
+                <section ng-controller="SectionController as sc">
                     <ul class="nav nav-pills">
-                        <li ng-class="{active:tab === 1}" ng-show="sandbox.config.showNamePlaceholder || sandbox.config.showAll">
-                            <a href ng-click="tab = 1">ng-model</a>
+                        <li ng-class="{active:sc.isSelected(1)}" ng-show="sandbox.config.showNamePlaceholder || sandbox.config.showAll">
+                            <a href ng-click="sc.selectTab(1)">ng-model</a>
                         </li>
-                        <li ng-class="{active:tab === 2}" ng-show="sandbox.config.showMath || sandbox.config.showAll">
-                            <a href ng-click="tab = 2">math</a>
+                        <li ng-class="{active:sc.isSelected(2)}" ng-show="sandbox.config.showMath || sandbox.config.showAll">
+                            <a href ng-click="sc.selectTab(2)">math</a>
                         </li>
-                        <li ng-class="{active:tab === 3}" ng-show="sandbox.config.showCurrencyFilter || sandbox.config.showAll">
-                            <a href ng-click="tab = 3">currency</a>
+                        <li ng-class="{active:sc.isSelected(3)}" ng-show="sandbox.config.showCurrencyFilter || sandbox.config.showAll">
+                            <a href ng-click="sc.selectTab(3)">currency</a>
                         </li>
-                        <li ng-class="{active:tab === 4}" ng-show="sandbox.config.showDateFilter || sandbox.config.showAll">
-                            <a href ng-click="tab = 4">dates</a>
+                        <li ng-class="{active:sc.isSelected(4)}" ng-show="sandbox.config.showDateFilter || sandbox.config.showAll">
+                            <a href ng-click="sc.selectTab(4)">dates</a>
                         </li>
-                        <li ng-class="{active:tab === 5}" ng-show="sandbox.config.showStringFilters || sandbox.config.showAll">
-                            <a href ng-click="tab = 5">strings</a>
+                        <li ng-class="{active:sc.isSelected(5)}" ng-show="sandbox.config.showStringFilters || sandbox.config.showAll">
+                            <a href ng-click="sc.selectTab(5)">strings</a>
                         </li>
-                        <li ng-class="{active:tab === 6}" ng-show="sandbox.config.showImages || sandbox.config.showAll">
-                            <a href ng-click="tab = 6">ng-src</a>
+                        <li ng-class="{active:sc.isSelected(6)}" ng-show="sandbox.config.showImages || sandbox.config.showAll">
+                            <a href ng-click="sc.selectTab(6)">ng-src</a>
                         </li>
                     </ul>
 
-                    <div class="container well" ng-show="tab === 1 && (sandbox.config.showNamePlaceholder || sandbox.config.showAll)">
+                    <div class="container well" ng-show="sc.isSelected(1) && (sandbox.config.showNamePlaceholder || sandbox.config.showAll)">
                         <h1>ng-model example</h1>
                         <p><input type="text" ng-model="what" placeholder="Enter something"></p>
                         <p ng-hide="!what">I love {{what}}</p>
                     </div>
 
-                    <div class="container well" ng-show="tab === 2 && (sandbox.config.showMath || sandbox.config.showAll)">
+                    <div class="container well" ng-show="sc.isSelected(2) && (sandbox.config.showMath || sandbox.config.showAll)">
                         <h1>Math expressions</h1>
                         <p>10 + 32 = {{10 + 32}}</p>
                     </div>
 
-                    <div class="container well" ng-show="tab === 3 && (sandbox.config.showCurrencyFilter || sandbox.config.showAll)">
+                    <div class="container well" ng-show="sc.isSelected(3) && (sandbox.config.showCurrencyFilter || sandbox.config.showAll)">
                         <h1>Currency Filter</h1>
                         <p>That cat will be {{42 | currency}}</p>
                     </div>
 
-                    <div class="container well" ng-show="tab === 4 && (sandbox.config.showDateFilter || sandbox.config.showAll)">
+                    <div class="container well" ng-show="sc.isSelected(4) && (sandbox.config.showDateFilter || sandbox.config.showAll)">
                         <h1>Date format filter</h1>
                         <p>{{'1423606559000' | date:'yyyy-MM-dd HH:mm:ss'}}
                     </div>
 
-                    <div class="container well" ng-show="tab === 5 && (sandbox.config.showStringFilters || sandbox.config.showAll)">
+                    <div class="container well" ng-show="sc.isSelected(5) && (sandbox.config.showStringFilters || sandbox.config.showAll)">
                         <h1>String filters</h1>
                         <p>{{'Make me uppercase' | uppercase}}</p>
                         <p>{{'Make Me Lowercase' | lowercase}}</p>
                         <p>{{'Only show the first 22 characters of this sentence.' | limitTo:22}}</p>
                     </div>
 
-                    <div class="container well" ng-show="tab === 6 && (sandbox.config.showImages || sandbox.config.showAll)">
+                    <div class="container well" ng-show="sc.isSelected(6) && (sandbox.config.showImages || sandbox.config.showAll)">
                         <p>Hot <img ng-src="{{sandbox.config.images.lips}}" /> image</p>
                     </div>
                 </section>
             </div>
         </div>
+        <footer>Thank you codeschool.com for the great lessons that helped me build this site.</footer>
         <script src="js/jquery-1.10.2.min.js"></script>
         <script src="css/bootstrap/3.0.0/js/bootstrap.min.js"></script>
         <script src="js/default.js"></script>
